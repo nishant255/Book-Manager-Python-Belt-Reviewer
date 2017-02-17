@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{book.title|title}}</title>
+        <style media="screen">
+            .header {
+                text-align: right;;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <a href="/success">Home</a>&nbsp;&nbsp;
+            <a href="/logout">Logout</a>
+        </div>
+        <div>
+            <h3>{{book.title|title}}</h3>
+            <p>Author: {{book.author.name|title}}</p>
+        </div>
+        <br><br>
+        <div>
+            <h3>Reviews:</h3>
+            {% for reviews in reviews %}
+            <hr>
+            <p>Ratings: {{reviews.ratings}}</p>
+            <p><a href="{%url 'view_user' user_id=reviews.user.id %}">{{reviews.user.first_name|title}}</a> says: {{reviews.review}}</p>
+            <p>Posted on {{reviews.created_at}}</p>
+            {% endfor %}
+        </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.error }}", style="color: red"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div>
+            <form action="{%url 'adding_review' book_id=book.id %}" method="post">
+                {% csrf_token %}
+                <label>Add a Review:</label><br>
+                <textarea name="review" rows="8" cols="80"></textarea>
+                <label>Ratings</label>
+                <select name="ratings">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select><br><br>
+                <input type="submit" value="Submit Review">
+            </form>
+        </div>
+    </body>
+</html>

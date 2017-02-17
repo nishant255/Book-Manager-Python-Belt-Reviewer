@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{user.first_name|title}}</title>
+        <style media="screen">
+        .header {
+            text-align: right;;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <a href="/success">Home</a>&nbsp;&nbsp;
+            <a href="/add_book">Add Book and Review</a>&nbsp;&nbsp;
+            <a href="/logout">Log Out</a>&nbsp;&nbsp;
+        </div>
+        <div>
+            <h2>User Alias: {{user.first_name|title}}</h2>
+            <p>Name: {{user.first_name|title}} {{user.last_name|title}}</p>
+            <p>Email: {{user.email}}</p>
+            <p>Total Reviews: {{total_reviews}}</p>
+        </div>
+        <br><br>
+        <div>
+            <h3>Posted Reviews on following books:</h3>
+            {% for book in book_list %}
+                <a href="{%url 'view_book' book_id=book.id %}">{{book.title|title}}</a><br>
+            {% endfor %}
+        </div>
+
+    </body>
+</html>

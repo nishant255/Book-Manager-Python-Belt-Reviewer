@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome {{ user.first_name| title }}</title>
+        <style media="screen">
+            .header {
+                text-align: right;
+                margin-bottom: -40px;
+            }
+            .recentbook{
+                display: inline;
+            }
+            .otherbooks{
+                float: right;
+                overflow: scroll;
+            }
+            .otherbooks_main{
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <a href="/add_book">Add Book and Review</a>&nbsp;
+            <a href="/logout">Log Out</a>
+        </div>
+        <div>
+            <h1>Welcome, {{ user.first_name| title }}!</h1>
+        </div>
+        <div class="recentbook">
+            <h3>Recent Book Reviews:</h3>
+            {% for book in book_list %}
+            <strong><a href="{%url 'view_book' book_id=book.id %}">{{book.title|title}}</a></strong><br>
+            {% for review in reviews %}
+            {% if review.book.id == book.id %}
+            <p>&nbsp;&nbsp;Ratings: {{review.ratings}}</p>
+            <p>&nbsp;&nbsp;<a href="{%url 'view_user' user_id=review.user.id %}">{{review.user.first_name|title}}</a> says: {{review.review}}</p>
+            <hr>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <br>
+        <div class="otherbooks_main">
+            <h4>Other Books With Reviews:</h4>
+            <div class="otherbooks" style="width: 300px; height: 200px; border: 1px solid black">
+                {% for book in book %}
+                <a href="{%url 'view_book' book_id=book.id %}">{{book.title|title}}</a><br>
+                {% endfor %}
+            </div>
+        </div>
+
+    </body>
+</html>

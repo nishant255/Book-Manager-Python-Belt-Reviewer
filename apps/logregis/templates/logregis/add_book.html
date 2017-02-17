@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add Book</title>
+        <style media="screen">
+            .header {
+                text-align: right;;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <a href="/success">Home</a>&nbsp;&nbsp;
+            <a href="/logout">Logout</a>
+        </div>
+        <div>
+            <h2>Add a New Book Title and a Review</h2>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.error }}", style="color: red"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="/adding_book" method="post">
+                {% csrf_token %}
+                <label>Book Title:</label>
+                <input type="text" name="title"><br>
+                <label>Author:</label><br>
+                <label>Choose from the list:</label>
+                <select name="author">
+                    <option value="Default Author">Default Author</option>
+                    {% for author in authors %}
+                    {{author.name}}
+                    <option value="{{author.name}}">{{author.name|title}}</option>
+                    {% endfor %}
+                </select><br>
+                <label>Or add a new author:</label>
+                <input type="text" name="author_new"><br>
+                <label>Review:</label><br>
+                <textarea name="review" rows="8" cols="80"></textarea><br>
+                <label>Ratings</label>
+                <select name="ratings">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select><br><br>
+                <input type="submit" value="Add Book and Review">
+            </form>
+        </div>
+    </body>
+</html>
