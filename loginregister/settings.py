@@ -26,7 +26,9 @@ SECRET_KEY = '6l(vyqnvqme*w3))ng$8^x#+twt$rlwqbm1mmaeeb%@tdi^=a!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'book-manager-django.herokuapp.com'
+]
 
 
 # Application definition
