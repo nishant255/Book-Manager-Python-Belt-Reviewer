@@ -27,7 +27,9 @@ SECRET_KEY = '6l(vyqnvqme*w3))ng$8^x#+twt$rlwqbm1mmaeeb%@tdi^=a!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'book-manager-django.herokuapp.com'
+    'book-manager-django.herokuapp.com',
+    'book.npatel.info',
+    'www.book.npatel.info'
 ]
 
 
